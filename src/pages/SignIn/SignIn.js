@@ -40,7 +40,15 @@ const SignIn = () => {
             id="password"
             name="password"
           />
-          <button type="submit">Log In</button>
+          <button
+            type="submit"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate("/dashboard");
+            }}
+          >
+            Log In
+          </button>
         </form>
         <button
           className={styles["link-btn"]}
