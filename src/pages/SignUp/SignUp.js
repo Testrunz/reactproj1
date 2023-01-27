@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { auth } from "../../utilities/firebase/firebase";
 import styles from "./SignUp.module.css";
 
 const SignUp = () => {
@@ -40,7 +40,23 @@ const SignUp = () => {
             id="password"
             name="password"
           />
-          <button type="submit">Sign up</button>
+          <button
+            type="submit"
+            onClick={(e) => {
+              e.preventDefault();
+              auth
+                .createUserWithEmailAndPassword(email, pass)
+                .then((data) => {
+                  console.log(data);
+                  navigate("/signin");
+                })
+                .catch((err) => {
+                  console.error(err);
+                });
+            }}
+          >
+            Sign up
+          </button>
         </form>
         <button
           className={styles["link-btn"]}

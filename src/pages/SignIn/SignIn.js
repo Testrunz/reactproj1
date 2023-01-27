@@ -1,9 +1,9 @@
 import { Helmet } from "react-helmet";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { auth } from "../../utilities/firebase/firebase";
 import styles from "./SignIn.module.css";
-
+import GoogleSignIn from "../../components/GoogleSignIn"
 const SignIn = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -44,12 +44,21 @@ const SignIn = () => {
             type="submit"
             onClick={(e) => {
               e.preventDefault();
-              navigate("/dashboard");
+              auth
+                .signInWithEmailAndPassword(email, pass)
+                .then((data) => {
+                  console.log(data);
+                  navigate("/dashboard");
+                })
+                .catch((err) => {
+                  console.error(err);
+                });
             }}
           >
             Log In
           </button>
         </form>
+        <GoogleSignIn />
         <button
           className={styles["link-btn"]}
           onClick={(e) => {

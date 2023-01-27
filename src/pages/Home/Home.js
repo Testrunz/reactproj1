@@ -5,8 +5,6 @@ import solution from "../../assets/solution.svg";
 import about from "../../assets/about.mp4";
 import styles from "./Home.module.css";
 
-import "../../utilities/firebase/firebase"
-//
 const Home = () => {
   const navigate = useNavigate();
     const onClickNavigateSignin = (event) => {
