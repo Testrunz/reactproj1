@@ -1,5 +1,5 @@
 const webpack = require("webpack");
-const Dotenv = require("dotenv-webpack");
+//const Dotenv = require("dotenv-webpack");
 module.exports = function override(config) {
   const fallback = config.resolve.fallback || {};
   fallback.fs = false;
@@ -20,7 +20,7 @@ module.exports = function override(config) {
       process: "process/browser",
       Buffer: ["buffer", "Buffer"],
     }),
-    new Dotenv(),
+   // new Dotenv(),
   ]);
   return config;
 };
