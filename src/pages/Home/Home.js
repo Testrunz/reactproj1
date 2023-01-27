@@ -9,12 +9,10 @@ const Home = () => {
   const navigate = useNavigate();
     const onClickNavigateSignin = (event) => {
       event.preventDefault();
-      console.log("signin");
         navigate('/signin');
     };
     const onClickNavigateSignup = (event) => {
       event.preventDefault();
-      console.log("signup");
         navigate('/signup');
     };
   return (
