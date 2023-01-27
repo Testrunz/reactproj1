@@ -1,5 +1,6 @@
 const webpack = require("webpack");
-//const Dotenv = require("dotenv-webpack");
+require('dotenv').config({ path: './.env' }); 
+//console.log(process.env);
 module.exports = function override(config) {
   const fallback = config.resolve.fallback || {};
   fallback.fs = false;
@@ -20,7 +21,9 @@ module.exports = function override(config) {
       process: "process/browser",
       Buffer: ["buffer", "Buffer"],
     }),
-   // new Dotenv(),
+   new webpack.DefinePlugin({
+    "process.env.FIREBASE_CONFIG": JSON.stringify(process.env.FIREBASE_CONFIG)
+}),
   ]);
   return config;
 };
