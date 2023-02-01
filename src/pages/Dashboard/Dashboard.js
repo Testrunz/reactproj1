@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Outlet } from "react-router-dom";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "../../utilities/theme/theme";
 
@@ -15,10 +16,10 @@ const Dashboard = () => {
         <div className="app">
           <Sidebar isSidebar={isSidebar} />
           <main className="content">
-          <Topbar setIsSidebar={setIsSidebar} />
-          <div>Dashboard</div>
+            <Topbar setIsSidebar={setIsSidebar} />
+            <Outlet />
           </main>
-          </div>
+        </div>
       </ThemeProvider>
     </ColorModeContext.Provider>
   );

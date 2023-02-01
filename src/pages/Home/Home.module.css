@@ -112,6 +112,12 @@
   padding-bottom: var(--dl-space-space-doubleunit);
   background-color: var(--dl-color-gray-black);
 }
+
+.home-cta-btn:hover, .home-cta-btn1:hover{
+  color: var(--dl-color-gray-black);
+  background-color: var(--dl-color-gray-white);
+}
+
 .home-features {
   width: 100%;
   display: flex;
