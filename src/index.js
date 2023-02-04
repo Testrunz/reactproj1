@@ -6,10 +6,14 @@ import Home from "./pages/Home/Home";
 import NotFound from "./pages/NotFound/NotFound";
 import SignIn from "./pages/SignIn/SignIn";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import ProcedureOuter from "./pages/ProcedureOuter/ProcedureOuter";
+import RunzOuter from "./pages/RunzOuter/RunzOuter";
 
 import MyPageScene from "./appScenes/myPage";
 import RunzScene from "./appScenes/runz";
+import RunzPlay from "./appScenes/runz/Runz";
 import ProcedureScene from "./appScenes/procedure";
+import ProcedurePlay from "./appScenes/procedure/Procedure";
 import SettingScene from "./appScenes/setting";
 import SupportScene from "./appScenes/support";
 import ProfileScene from "./appScenes/profile";
@@ -28,6 +32,12 @@ root.render(
           <Route path="setting" element={<SettingScene />} />
           <Route path="support" element={<SupportScene />} />
           <Route path="profile" element={<ProfileScene />} />
+        </Route>
+        <Route path="/procedure" element={<ProcedureOuter />}>
+        <Route index element={<ProcedurePlay />} />
+        </Route>
+        <Route path="/runz" element={<RunzOuter />}>
+        <Route index element={<RunzPlay />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
