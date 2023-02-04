@@ -55,8 +55,8 @@ const Setting = () => {
   return (
     <Box m="20px">
       <Header
-        title="CONTACTS"
-        subtitle="List of Contacts for Future Reference"
+        title="Settings"
+        subtitle="Settings management"
       />
       <Box
         m="40px 0 0 0"
