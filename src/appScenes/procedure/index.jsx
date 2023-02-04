@@ -4,7 +4,7 @@ import { tokens } from "../../utilities/theme/theme";
 import { mockDataInvoices } from "../../data/mockData";
 import Header from "../../components/Header";
 
-const Invoices = () => {
+const Procedure = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const columns = [
@@ -44,7 +44,7 @@ const Invoices = () => {
 
   return (
     <Box m="20px">
-      <Header title="INVOICES" subtitle="List of Invoice Balances" />
+      <Header title="Procedures" subtitle="List of procedures" />
       <Box
         m="40px 0 0 0"
         height="75vh"
@@ -80,4 +80,4 @@ const Invoices = () => {
   );
 };
 
-export default Invoices;
+export default Procedure;

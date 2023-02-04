@@ -1,15 +1,11 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../utilities/theme/theme";
 import { mockTransactions } from "../../data/mockData";
-import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import TrafficIcon from "@mui/icons-material/Traffic";
 import Header from "../../components/Header";
-import LineChart from "../../components/LineChart";
-import GeographyChart from "../../components/GeographyChart";
-import BarChart from "../../components/BarChart";
+//import LineChart from "../../components/LineChart";
 import StatBox from "../../components/StatBox";
-import ProgressCircle from "../../components/ProgressCircle";
 
 const Dashboard = () => {
   const theme = useTheme();
@@ -19,7 +15,7 @@ const Dashboard = () => {
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />       
+        <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
       </Box>
 
       {/* GRID & CHARTS */}
@@ -48,7 +44,7 @@ const Dashboard = () => {
               />
             }
           />
-        </Box> */}
+        </Box> 
         <Box
           gridColumn="span 3"
           backgroundColor={colors.primary[400]}
@@ -68,6 +64,7 @@ const Dashboard = () => {
             }
           />
         </Box>
+        */}
         <Box
           gridColumn="span 3"
           backgroundColor={colors.primary[400]}
@@ -77,7 +74,7 @@ const Dashboard = () => {
         >
           <StatBox
             title="32,441"
-            subtitle="New Clients"
+            subtitle="runz completed"
             progress="0.30"
             increase="+5%"
             icon={
@@ -96,7 +93,7 @@ const Dashboard = () => {
         >
           <StatBox
             title="1,325,134"
-            subtitle="Traffic Received"
+            subtitle="marks gained"
             progress="0.80"
             increase="+43%"
             icon={
@@ -109,8 +106,8 @@ const Dashboard = () => {
 
         {/* ROW 2 */}
         <Box
-          gridColumn="span 8"
-          gridRow="span 2"
+          gridColumn="span 12"
+          gridRow="span 3"
           backgroundColor={colors.primary[400]}
         >
           <Box
@@ -120,7 +117,54 @@ const Dashboard = () => {
             justifyContent="space-between"
             alignItems="center"
           >
-            <Box>
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+              borderBottom={`4px solid ${colors.primary[500]}`}
+              colors={colors.grey[100]}
+              p="15px"
+            >
+              <Typography
+                color={colors.grey[100]}
+                variant="h5"
+                fontWeight="600"
+              >
+                Recent Runz
+              </Typography>
+              {mockTransactions.map((transaction, i) => (
+                <Box
+                  key={`${transaction.txId}-${i}`}
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="center"
+                  borderBottom={`4px solid ${colors.primary[500]}`}
+                  p="15px"
+                >
+                  <Box>
+                    <Typography
+                      color={colors.greenAccent[500]}
+                      variant="h5"
+                      fontWeight="600"
+                    >
+                      {transaction.txId}
+                    </Typography>
+                    <Typography color={colors.grey[100]}>
+                      {transaction.user}
+                    </Typography>
+                  </Box>
+                  <Box color={colors.grey[100]}>{transaction.date}</Box>
+                  <Box
+                    backgroundColor={colors.greenAccent[500]}
+                    p="5px 10px"
+                    borderRadius="4px"
+                  >
+                    ${transaction.cost}
+                  </Box>
+                </Box>
+              ))}
+            </Box>
+            {/*  <Box>
               <Typography
                 variant="h5"
                 fontWeight="600"
@@ -135,13 +179,13 @@ const Dashboard = () => {
               >
                 $59,342.32
               </Typography>
-            </Box>
+            </Box> */}
           </Box>
-          <Box height="250px" m="-20px 0 0 0">
+          {/* <Box height="250px" m="-20px 0 0 0">
             <LineChart isDashboard={true} />
-          </Box>
+          </Box> */}
         </Box>
-        <Box
+        {/* <Box
           gridColumn="span 4"
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
@@ -190,10 +234,10 @@ const Dashboard = () => {
               </Box>
             </Box>
           ))}
-        </Box>
+        </Box> */}
 
         {/* ROW 3 */}
-        <Box
+        {/*  <Box
           gridColumn="span 4"
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
@@ -218,8 +262,8 @@ const Dashboard = () => {
             </Typography>
             <Typography>Includes extra misc expenditures and costs</Typography>
           </Box>
-        </Box>
-        <Box
+        </Box> */}
+        {/*  <Box
           gridColumn="span 4"
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
@@ -234,8 +278,8 @@ const Dashboard = () => {
           <Box height="250px" mt="-20px">
             <BarChart isDashboard={true} />
           </Box>
-        </Box>
-        <Box
+        </Box> */}
+        {/* <Box
           gridColumn="span 4"
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
@@ -251,7 +295,7 @@ const Dashboard = () => {
           <Box height="200px">
             <GeographyChart isDashboard={true} />
           </Box>
-        </Box>
+        </Box> */}
       </Box>
     </Box>
   );
