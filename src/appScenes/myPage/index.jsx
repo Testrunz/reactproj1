@@ -1,7 +1,6 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../utilities/theme/theme";
 import { mockTransactions } from "../../data/mockData";
-import EmailIcon from "@mui/icons-material/Email";
 import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import TrafficIcon from "@mui/icons-material/Traffic";
@@ -20,9 +19,7 @@ const Dashboard = () => {
     <Box m="20px">
       {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
-
-       
+        <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />       
       </Box>
 
       {/* GRID & CHARTS */}
@@ -33,7 +30,7 @@ const Dashboard = () => {
         gap="20px"
       >
         {/* ROW 1 */}
-        <Box
+        {/* <Box
           gridColumn="span 3"
           backgroundColor={colors.primary[400]}
           display="flex"
@@ -51,7 +48,7 @@ const Dashboard = () => {
               />
             }
           />
-        </Box>
+        </Box> */}
         <Box
           gridColumn="span 3"
           backgroundColor={colors.primary[400]}

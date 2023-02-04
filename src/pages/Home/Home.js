@@ -13,7 +13,7 @@ const Home = () => {
     };
     const onClickNavigateSignup = (event) => {
       event.preventDefault();
-        navigate('/signup');
+        navigate('/signin');
     };
   return (
     <div className={styles["home-container"]}>
