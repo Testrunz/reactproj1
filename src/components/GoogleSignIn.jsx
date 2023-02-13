@@ -27,10 +27,10 @@ const GoogleSignIn = () => {
     const handlerGoogleSignIn = (e)=>{
         e.preventDefault();
         auth.signInWithPopup(provider).then((result)=>{
-            console.log(result);
+           // console.log(result);
             navigate("/dashboard");
         }).catch((err)=>{
-            console.error(err);
+          //  console.error(err);
         })
     }
   return (
