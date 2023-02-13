@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 const SubmitButton = styled.button`
   width: 80%;
-  padding: 11px 40%;
+  padding: 11px 0;
   color: #fff;
   font-size: 15px;
   font-weight: 600;

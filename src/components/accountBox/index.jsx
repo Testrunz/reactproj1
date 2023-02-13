@@ -8,7 +8,6 @@ import { ForgotPasswdForm } from "./forgotPasswdForm";
 
 const BoxContainer = styled.div`
   min-width: 300px;
-  min-height: 550px;
   display: flex;
   flex-direction: column;
   border-radius: 16px;
@@ -74,7 +73,6 @@ const InnerContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 0 1.2em;
 `;
 
 const backdropVariants = {
@@ -128,48 +126,56 @@ export function AccountBox(props) {
     setTimeout(() => {
       setActive("forgotpass");
     }, 400);
-  }
+  };
 
   const contextValue = { switchToSignup, switchToSignin, switchToForgotPass };
 
   return (
-    <AccountContext.Provider value={contextValue}>
-      <BoxContainer>
-        <TopContainer>
-          <BackDrop
-            initial={false}
-            animate={isExpanded ? "expanded" : "collapsed"}
-            variants={backdropVariants}
-            transition={expandingTransition}
-          />
-          {active === "signin" && (
-            <HeaderContainer>
-              <HeaderText>Welcome</HeaderText>
-              <HeaderText>Back</HeaderText>
-              <SmallText>Please sign-in to continue!</SmallText>
-            </HeaderContainer>
-          )}
-          {active === "signup" && (
-            <HeaderContainer>
-              <HeaderText>Create</HeaderText>
-              <HeaderText>Account</HeaderText>
-              <SmallText>Please sign-up to continue!</SmallText>
-            </HeaderContainer>
-          )}
-          {active === "forgotpass" && (
-            <HeaderContainer>
-              <HeaderText>Forgot</HeaderText>
-              <HeaderText>Account password</HeaderText>
-              <SmallText>Please procede!</SmallText>
-            </HeaderContainer>
-          )}
-        </TopContainer>
-        <InnerContainer>
-          {active === "signin" && <LoginForm />}
-          {active === "signup" && <SignupForm />}
-          {active === "forgotpass" &&  <ForgotPasswdForm />}
-        </InnerContainer>
-      </BoxContainer>
-    </AccountContext.Provider>
+    <div
+      style={{
+        display: "flex",
+        height: window.innerHeight,
+        alignItems: "center",
+      }}
+    >
+      <AccountContext.Provider value={contextValue}>
+        <BoxContainer style={{ marginBottom: 2 }}>
+          <TopContainer>
+            <BackDrop
+              initial={false}
+              animate={isExpanded ? "expanded" : "collapsed"}
+              variants={backdropVariants}
+              transition={expandingTransition}
+            />
+            {active === "signin" && (
+              <HeaderContainer>
+                <HeaderText>Welcome</HeaderText>
+                <HeaderText>Back</HeaderText>
+                <SmallText>Please sign-in to continue!</SmallText>
+              </HeaderContainer>
+            )}
+            {active === "signup" && (
+              <HeaderContainer>
+                <HeaderText>Create</HeaderText>
+                <HeaderText>Account</HeaderText>
+                <SmallText>Please sign-up to continue!</SmallText>
+              </HeaderContainer>
+            )}
+            {active === "forgotpass" && (
+              <HeaderContainer>
+                <HeaderText>Forgot</HeaderText>
+                <HeaderText>Account password</HeaderText>
+                <SmallText>Please procede!</SmallText>
+              </HeaderContainer>
+            )}
+          </TopContainer>
+          <InnerContainer>
+            {active === "signin" && <LoginForm />}
+            {active === "signup" && <SignupForm />}
+            {active === "forgotpass" && <ForgotPasswdForm />}
+          </InnerContainer>
+        </BoxContainer>
+      </AccountContext.Provider>
+    </div>
   );
 }

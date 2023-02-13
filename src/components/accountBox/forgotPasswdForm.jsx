@@ -13,15 +13,19 @@ export const ForgotPasswdForm = (props) => {
   return (
     <BoxContainer>
       <FormContainer>
-      <Input type="email" placeholder="Email" />
+        <Input
+          style={{ width: 240, marginBottom: 20 }}
+          type="email"
+          placeholder="Email"
+        />
       </FormContainer>
       <SubmitButton type="submit">Proceede</SubmitButton>
-      <MutedLink href="#">
+      <MutedLink href="#" style={{ marginTop: 20, marginBottom: 20 }}>
         Already have an account?
         <BoldLink href="#" onClick={switchToSignin}>
           Signin
         </BoldLink>
-        </MutedLink>
+      </MutedLink>
     </BoxContainer>
   );
 };
