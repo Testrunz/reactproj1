@@ -9,21 +9,21 @@ const RunzOuter = () => {
   const [theme, colorMode] = useMode();
   return (
     <>
-    <Helmet>
+      <Helmet>
         <title>Testrunz - Runz</title>
         <meta property="og:title" content="Runz" />
       </Helmet>
-    <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <div className="app">
-          <main className="content">
-            <Topbar  />
-            <Outlet />
-          </main>
-        </div>
-      </ThemeProvider>
-    </ColorModeContext.Provider>
+      <ColorModeContext.Provider value={colorMode}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <div className="app">
+            <main className="content">
+              <Topbar />
+              <Outlet />
+            </main>
+          </div>
+        </ThemeProvider>
+      </ColorModeContext.Provider>
     </>
   );
 };
