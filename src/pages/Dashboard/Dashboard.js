@@ -4,7 +4,6 @@ import { CssBaseline, ThemeProvider, Box } from "@mui/material";
 import { ColorModeContext, tokens, useMode } from "../../utilities/theme/theme";
 import Topbar from "../../appScenes/global/Topbar";
 import Sidebar from "../../appScenes/global/Sidebar";
-import Header from "../../components/Header";
 import { DataGrid } from "@mui/x-data-grid";
 import { data } from "./mock";
 import SvgDelete from "../../icons/SvgDeleteIcon";
@@ -65,7 +64,6 @@ const Dashboard = () => {
             <main className="content">
               <Topbar setIsSidebar={setIsSidebar} />
               <Box m="20px">
-                {/* <Header title="Runz" subtitle="Managing Your Runz Here" /> */}
                 <Box
                   m="40px 0 0 0"
                   height={window.innerHeight - 150}
