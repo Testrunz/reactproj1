@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { Provider } from 'react-redux';
+import { Provider } from "react-redux";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./index.css";
 import Home from "./pages/Home/Home";
@@ -18,16 +18,16 @@ import SettingScene from "./appScenes/setting";
 import SupportScene from "./appScenes/support";
 import ProfileScene from "./appScenes/profile";
 import store from "./reudx/store";
-
+import ProtectedRoutes from "./utilities/ProtectedRoutes";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
-    <React.StrictMode>
-      <Router>
-        <Routes>
-          <Route path="/" index element={<Home />} />
-          <Route path="/signin" element={<SignIn />} />
+    <Router>
+      <Routes>
+        <Route path="/" index element={<Home />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route element={<ProtectedRoutes />}>
           <Route path="/dashboard" element={<Dashboard />}>
             <Route index element={<MyPageScene />} />
             <Route path="runz" element={<RunzScene />} />
@@ -43,8 +43,8 @@ root.render(
             <Route index element={<RunzPlay />} />
           </Route>
           <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Router>
-    </React.StrictMode>
+        </Route>
+      </Routes>
+    </Router>
   </Provider>
 );

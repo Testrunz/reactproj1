@@ -1,12 +1,10 @@
 import {configureStore, combineReducers} from '@reduxjs/toolkit';
 import {reducers} from './mainreducers';
-
 const resetStoreActionType = 'main/resetStore';
 
 const combinedReducer = combineReducers(reducers);
 export const rootReducer = (state, action) => {  
   if (action.type === resetStoreActionType) {
-    // eslint-disable-next-line
     state = undefined;
   }  
   return combinedReducer(state, action);

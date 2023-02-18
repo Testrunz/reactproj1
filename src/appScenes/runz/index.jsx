@@ -1,108 +1,144 @@
-import { Box, Typography, useTheme } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
+import { Box, useTheme } from "@mui/material";
 import { tokens } from "../../utilities/theme/theme";
-import { mockDataTeam } from "../../data/mockData";
-import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
-import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
-import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../components/Header";
+import { DataGrid } from "@mui/x-data-grid";
+import { useDispatch, useSelector } from "react-redux";
+import { USER_DATA } from "../../utilities/localStorageConstants";
+import { useEffect } from "react";
+import SvgDelete from "../../icons/SvgDeleteIcon";
+import Loader from "../../components/Loader/Loader";
+import { experimentsRunzMiddleWare } from "./store/runzMiddleware";
+import { getDateString, isEmpty } from "../../utilities/helpers";
 
 const Runz = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const dispatch = useDispatch();
+  let userData = localStorage.getItem(USER_DATA);
+  userData = JSON.parse(userData);
+  useEffect(() => {
+    dispatch(
+      experimentsRunzMiddleWare({
+        id: userData?.user?._id,
+        role: userData?.user?.role,
+      })
+    );
+  }, []);
+
+  const { isLoading, data } = useSelector(({ experimentsRunzReducers }) => {
+    return {
+      data: experimentsRunzReducers.data,
+      isLoading: experimentsRunzReducers.isLoading,
+    };
+  });
+
   const columns = [
-    { field: "id", headerName: "ID" },
     {
-      field: "name",
-      headerName: "Name",
-      flex: 1,
-      cellClassName: "name-column--cell",
+      field: "_id",
+      headerName: "ID",
+      renderCell: (index) => index.api.getRowIndex(index.row._id) + 1,
     },
     {
-      field: "age",
-      headerName: "Age",
-      type: "number",
-      headerAlign: "left",
-      align: "left",
-    },
-    {
-      field: "phone",
-      headerName: "Phone Number",
+      field: "experimentName",
+      headerName: "Procedure Name",
       flex: 1,
     },
     {
-      field: "email",
-      headerName: "Email",
+      field: "labType",
+      headerName: "Lab Name",
       flex: 1,
     },
     {
-      field: "accessLevel",
-      headerName: "Access Level",
+      field: "procedureDescription",
+      headerName: "Description",
       flex: 1,
-      renderCell: ({ row: { access } }) => {
-        return (
-          <Box
-            width="60%"
-            m="0 auto"
-            p="5px"
-            display="flex"
-            justifyContent="center"
-            backgroundColor={
-              access === "admin"
-                ? colors.greenAccent[600]
-                : access === "manager"
-                ? colors.greenAccent[700]
-                : colors.greenAccent[700]
-            }
-            borderRadius="4px"
-          >
-            {access === "admin" && <AdminPanelSettingsOutlinedIcon />}
-            {access === "manager" && <SecurityOutlinedIcon />}
-            {access === "user" && <LockOpenOutlinedIcon />}
-            <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
-              {access}
-            </Typography>
-          </Box>
-        );
+    },
+    {
+      field: "status",
+      headerName: "Assigned By",
+      flex: 0.8,
+      renderCell: () => {
+        return userData?.user?.email;
+      },
+    },
+    {
+      field: "grade",
+      headerName: "Grade",
+      flex: 0.4,
+      renderCell: (value) => {
+        if (!isEmpty(value.row?.grade)) {
+          return value.row?.grade;
+        } else {
+          return "-";
+        }
+      },
+    },
+    {
+      field: "time",
+      headerName: "Created Time",
+      flex: 0.7,
+      renderCell: (value) => {
+        const date = new Date(value.row.time).toDateString();
+        return getDateString(date, "ddd MMM DD YYYY");
+      },
+    },
+    {
+      field: "",
+      headerName: "Actions",
+      flex: 0.5,
+      align: "center",
+      headerAlign: "center",
+      renderCell: () => {
+        return <SvgDelete />;
       },
     },
   ];
 
   return (
-    <Box m="20px">
-      <Header title="Runz" subtitle="Managing Your Runz Here" />
-      <Box
-        m="40px 0 0 0"
-        height="75vh"
-        sx={{
-          "& .MuiDataGrid-root": {
-            border: "none",
-          },
-          "& .MuiDataGrid-cell": {
-            borderBottom: "none",
-          },
-          "& .name-column--cell": {
-            color: colors.greenAccent[300],
-          },
-          "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: colors.blueAccent[700],
-            borderBottom: "none",
-          },
-          "& .MuiDataGrid-virtualScroller": {
-            backgroundColor: colors.primary[400],
-          },
-          "& .MuiDataGrid-footerContainer": {
-            borderTop: "none",
-            backgroundColor: colors.blueAccent[700],
-          },
-          "& .MuiCheckbox-root": {
-            color: `${colors.greenAccent[200]} !important`,
-          },
-        }}
-      >
-        <DataGrid checkboxSelection rows={mockDataTeam} columns={columns} />
+    <>
+      {isLoading && <Loader />}
+      <Box m="20px">
+        <Header title="Runz" subtitle="Managing Your Runz Here" />
+        <Box m="20px">
+          <Box
+            m="40px 0 0 0"
+            height={window.innerHeight - 220}
+            sx={{
+              "& .MuiDataGrid-root": {
+                border: "none",
+              },
+              "& .MuiDataGrid-cell": {
+                borderBottom: "none",
+              },
+              "& .name-column--cell": {
+                color: colors.greenAccent[300],
+              },
+              "& .MuiDataGrid-columnHeaders": {
+                backgroundColor: colors.blueAccent[700],
+                borderBottom: "none",
+              },
+              "& .MuiDataGrid-virtualScroller": {
+                backgroundColor: colors.primary[400],
+              },
+              "& .MuiDataGrid-footerContainer": {
+                borderTop: "none",
+                backgroundColor: colors.blueAccent[700],
+              },
+              "& .MuiCheckbox-root": {
+                color: `${colors.greenAccent[200]} !important`,
+              },
+            }}
+          >
+            <DataGrid
+              getRowId={(row) => row._id}
+              rows={data?.data ? data.data : []}
+              columns={columns}
+              // pageSize={15}
+            />
+          </Box>
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 };
 

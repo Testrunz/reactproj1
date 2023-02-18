@@ -171,3 +171,6 @@ body,
   text-transform: none;
   text-decoration: none;
 }
+.scroll{
+  overflow-y: scroll;
+}
