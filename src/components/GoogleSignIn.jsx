@@ -1,6 +1,13 @@
 import { auth, provider } from "../utilities/firebase/firebase";
 import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
+import { useDispatch } from "react-redux";
+import {
+  loginMiddleWare,
+  validateUserMiddleWare,
+} from "./accountBox/store/loginMiddleware";
+import { USER_DATA } from "../utilities/localStorageConstants";
+
 const SubmitButton = styled.button`
   width: 80%;
   padding: 11px 0;
@@ -22,20 +29,47 @@ const SubmitButton = styled.button`
     filter: brightness(1.03);
   }
 `;
-const GoogleSignIn = () => {
-    const navigate = useNavigate();
-    const handlerGoogleSignIn = (e)=>{
-        e.preventDefault();
-        auth.signInWithPopup(provider).then((result)=>{
-           // console.log(result);
-            navigate("/dashboard");
-        }).catch((err)=>{
-          //  console.error(err);
-        })
-    }
-  return (
-    <SubmitButton onClick={(e)=>handlerGoogleSignIn(e)}>GoogleSignIn</SubmitButton>
-  )
-}
 
-export default GoogleSignIn
+const GoogleSignIn = ({ setLoader }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handlerGoogleSignIn = (e) => {
+    e.preventDefault();
+    auth
+      .signInWithPopup(provider)
+      .then((result) => {
+        dispatch(
+          loginMiddleWare({ email: result.user?.multiFactor?.user?.email })
+        )
+          .then((loginRes) => {
+            dispatch(
+              validateUserMiddleWare({ usertoken: loginRes.payload?.jwttoken })
+            )
+              .then((validateRes) => {
+                localStorage.setItem(
+                  USER_DATA,
+                  JSON.stringify(validateRes.payload)
+                );
+                setLoader(false);
+                navigate("/dashboard");
+              })
+              .catch(() => {
+                setLoader(false);
+              });
+          })
+          .catch(() => {
+            setLoader(false);
+          });
+      })
+      .catch(() => {
+        setLoader(false);
+      });
+  };
+  return (
+    <SubmitButton onClick={(e) => handlerGoogleSignIn(e)}>
+      GoogleSignIn
+    </SubmitButton>
+  );
+};
+
+export default GoogleSignIn;
