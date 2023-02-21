@@ -9,3 +9,4 @@ export const experimentsRunzApi = (id) => {
   return result;
 };
 export const moreInfoApi = fetchUrl("moreInfo");
+export const getaccessApi = fetchUrl("api/getaccess");

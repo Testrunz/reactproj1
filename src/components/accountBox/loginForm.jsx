@@ -101,7 +101,7 @@ export function LoginForm() {
           Signin
         </SubmitButton>
         <Marginer direction="vertical" margin="1.6em" />
-        <GoogleSignIn />
+        <GoogleSignIn setLoader={setLoader}/>
         <Marginer direction="vertical" margin="1em" />
         <MutedLink href="#">Don't have an accoun? </MutedLink>
         <BoldLink
