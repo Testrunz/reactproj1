@@ -14,7 +14,7 @@ const Procedure = () => {
 
   useEffect(() => {
     dispatch(moreInfoMiddleWare());
-  }, []);
+  }, [dispatch]);
 
   const { isLoading, data } = useSelector(({ moreInfoReducers }) => {
     return {

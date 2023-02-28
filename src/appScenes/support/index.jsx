@@ -9,7 +9,7 @@ import classNames from "classnames";
 import FeedBackTab from "./FeedBackTab";
 import Loader from "../../components/Loader/Loader";
 
-const cx = classNames.bind(styles);
+//const cx = classNames.bind(styles);
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;

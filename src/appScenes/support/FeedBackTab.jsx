@@ -127,7 +127,7 @@ const FeedBackTab = ({ setLoader }) => {
           <input
             onChange={() => formik.setFieldValue("category", "others")}
             checked={formik.values.category === "others"}
-            style={{ margin: "0", cursor: "pointer", cursor: "pointer" }}
+            style={{ margin: "0", cursor: "pointer" }}
             type="radio"
             id="flexRadioDefault1"
           />
@@ -175,7 +175,7 @@ const FeedBackTab = ({ setLoader }) => {
                   objectFit: "cover",
                 }}
                 src={formik.values.imageUrl}
-                alt="Uploaded Image"
+                alt="Uploaded file"
               />
             )}
           </div>

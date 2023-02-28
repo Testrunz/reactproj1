@@ -22,7 +22,7 @@ module.exports = function override(config) {
       Buffer: ["buffer", "Buffer"],
     }),
    new webpack.DefinePlugin({
-    "process.env.FIREBASE_CONFIG": JSON.stringify(process.env.FIREBASE_CONFIG)
+    "process.env.REACT_APP_FIREBASE_CONFIG": JSON.stringify(process.env.FIREBASE_CONFIG)
 }),
   ]);
   return config;

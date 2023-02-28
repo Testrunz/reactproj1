@@ -3,7 +3,7 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import { GoogleAuthProvider } from "firebase/auth";
 
-const firebaseConfig = process.env.FIREBASE_CONFIG;
+const firebaseConfig = process.env.REACT_APP_FIREBASE_CONFIG;
 const firebaseApp = firebase.initializeApp(JSON.parse(firebaseConfig));
 firebaseApp.firestore();
 const auth = firebase.auth(); 

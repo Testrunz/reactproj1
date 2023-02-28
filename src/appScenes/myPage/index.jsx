@@ -26,7 +26,7 @@ const Dashboard = () => {
         role: userData?.user?.role,
       })
     );
-  }, []);
+  }, [dispatch]);
 
   const { isLoading, data } = useSelector(({ experimentsReducers }) => {
     return {

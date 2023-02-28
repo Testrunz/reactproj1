@@ -25,7 +25,7 @@ const Setting = () => {
         role: userData?.user?.role,
       })
     );
-  }, []);
+  }, [dispatch]);
 
   const { isLoading, data } = useSelector(({ getaccessReducers }) => {
     return {

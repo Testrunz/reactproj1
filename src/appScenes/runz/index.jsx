@@ -23,7 +23,7 @@ const Runz = () => {
         role: userData?.user?.role,
       })
     );
-  }, []);
+  }, [dispatch, userData?.user?._id, userData?.user?.role]);
 
   const { isLoading, data } = useSelector(({ experimentsRunzReducers }) => {
     return {

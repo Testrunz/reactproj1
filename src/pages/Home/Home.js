@@ -192,13 +192,13 @@ const Home = () => {
             </span>
             <input
               type="text"
-              required="true"
+              required={true}
               placeholder="Name"
               className={`${styles["home-name5"]} input`}
             />
             <input
               type="text"
-              required="true"
+              required={true}
               placeholder="E-mail"
               className={`${styles["home-email"]} input`}
             />
