@@ -19,10 +19,13 @@ import SupportScene from "./appScenes/support";
 import ProfileScene from "./appScenes/profile";
 import store from "./reudx/store";
 import ProtectedRoutes from "./utilities/ProtectedRoutes";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
+    <ToastContainer />
     <Router>
       <Routes>
         <Route path="/" index element={<Home />} />

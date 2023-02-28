@@ -10,3 +10,5 @@ export const experimentsRunzApi = (id) => {
 };
 export const moreInfoApi = fetchUrl("moreInfo");
 export const getaccessApi = fetchUrl("api/getaccess");
+export const feedbackApi = fetchUrl("api/feedback");
+

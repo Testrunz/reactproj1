@@ -25,6 +25,7 @@
     "@testing-library/user-event": "^13.2.1",
     "axios": "^1.2.5",
     "chart.js": "^4.2.0",
+    "classnames": "^2.3.2",
     "firebase": "^9.16.0",
     "formik": "^2.2.9",
     "framer-motion": "^9.0.1",
@@ -37,6 +38,7 @@
     "react-redux": "^8.0.5",
     "react-router-dom": "6.7.0",
     "react-scripts": "5.0.1",
+    "react-toastify": "^9.1.1",
     "web-vitals": "^2.1.0",
     "yup": "^0.32.11"
   },

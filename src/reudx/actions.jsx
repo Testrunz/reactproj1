@@ -8,3 +8,5 @@ export const EXPERIMENTS_RUNZ = "runz/EXPERIMENTS_RUNZ";
 export const MORE_INFO = "procedure/MORE_INFO";
 
 export const GET_ACCESS = "setting/GET_ACCESS";
+
+export const FEED_BACK = "support/FEED_BACK";
