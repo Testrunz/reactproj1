@@ -1,7 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { experimentsApi } from "../../../routes/apiRoutes";
-import { EXPERIMENTS } from "../../../reudx/actions";
+import {
+  authMeApi,
+  experimentsApi,
+} from "../../../routes/apiRoutes";
+import { AUTH_ME, EXPERIMENTS } from "../../../reudx/actions";
 
 export const experimentsMiddleWare = createAsyncThunk(
   EXPERIMENTS,
@@ -18,3 +21,17 @@ export const experimentsMiddleWare = createAsyncThunk(
     }
   }
 );
+
+export const authMeMiddleWare = createAsyncThunk(
+  AUTH_ME,
+  async (_a, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get(authMeApi);
+      return data;
+    } catch (error) {
+      const typedError = error;
+      return rejectWithValue(typedError);
+    }
+  }
+);
+

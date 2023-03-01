@@ -2,11 +2,10 @@ import { auth, provider } from "../utilities/firebase/firebase";
 import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import { useDispatch } from "react-redux";
-import {
-  loginMiddleWare,
-  validateUserMiddleWare,
-} from "./accountBox/store/loginMiddleware";
-import { USER_DATA } from "../utilities/localStorageConstants";
+import { googleSignInMiddleWare } from "./accountBox/store/loginMiddleware";
+import { TOKEN } from "../utilities/localStorageConstants";
+import axios from "axios";
+import { authMeMiddleWare } from "../appScenes/myPage/store/mypageMiddleware";
 
 const SubmitButton = styled.button`
   width: 80%;
@@ -39,27 +38,31 @@ const GoogleSignIn = ({ setLoader }) => {
       .signInWithPopup(provider)
       .then((result) => {
         dispatch(
-          loginMiddleWare({ email: result.user?.multiFactor?.user?.email })
-        )
-          .then((loginRes) => {
-            dispatch(
-              validateUserMiddleWare({ usertoken: loginRes.payload?.jwttoken })
-            )
-              .then((validateRes) => {
-                localStorage.setItem(
-                  USER_DATA,
-                  JSON.stringify(validateRes.payload)
-                );
+          googleSignInMiddleWare({
+            email: result.user?.multiFactor?.user?.email,
+            name: result.user?.multiFactor?.user?.displayName,
+            uid: result.user?.multiFactor?.user?.uid,
+          })
+        ).then((res) => {
+          if (res.payload.success) {
+            localStorage.setItem(
+              TOKEN,
+              JSON.stringify(result.user?.multiFactor?.user?.accessToken)
+            );
+            axios.defaults.headers.common[
+              "Authorization"
+            ] = `Bearer ${result.user?.multiFactor?.user?.accessToken}`;
+
+            dispatch(authMeMiddleWare())
+              .then(() => {
                 setLoader(false);
                 navigate("/dashboard");
               })
               .catch(() => {
                 setLoader(false);
               });
-          })
-          .catch(() => {
-            setLoader(false);
-          });
+          }
+        });
       })
       .catch(() => {
         setLoader(false);
