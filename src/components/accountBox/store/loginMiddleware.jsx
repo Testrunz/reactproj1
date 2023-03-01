@@ -1,7 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { loginApi, validateUserApi } from "../../../routes/apiRoutes";
-import { LOGIN, VALIDATE_USER } from "../../../reudx/actions";
+import {
+  loginApi,
+  signinApi,
+  validateUserApi,
+} from "../../../routes/apiRoutes";
+import { LOGIN, SIGIN, VALIDATE_USER } from "../../../reudx/actions";
+import { toast } from "react-toastify";
 
 export const loginMiddleWare = createAsyncThunk(
   LOGIN,
@@ -27,6 +32,29 @@ export const validateUserMiddleWare = createAsyncThunk(
       });
       return data;
     } catch (error) {
+      const typedError = error;
+      return rejectWithValue(typedError);
+    }
+  }
+);
+
+export const signinMiddleWare = createAsyncThunk(
+  SIGIN,
+  async ({ email, password, name }, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post(signinApi, {
+        email,
+        password,
+        name,
+      });
+      if (data?.success) {
+        toast.success(data?.success);
+      }
+      return data;
+    } catch (error) {
+      if (error?.response?.data?.error) {
+        toast.error(error.response.data.error);
+      }
       const typedError = error;
       return rejectWithValue(typedError);
     }

@@ -1,5 +1,6 @@
 export const LOGIN = "login/LOGIN";
 export const VALIDATE_USER = "login/VALIDATE_USER";
+export const SIGIN = "login/SIGIN";
 
 export const EXPERIMENTS = "dashboard/EXPERIMENTS";
 

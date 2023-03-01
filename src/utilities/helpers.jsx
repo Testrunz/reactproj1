@@ -20,3 +20,16 @@ export const getDateString = (value, format, isUnix, convertToLocal) => {
   }
   return "";
 };
+
+
+export const isValidEmail = (value) => {
+  if (typeof value === "string") {
+    return (
+      value
+        .trim()
+        .match(/^([a-zA-Z0-9_+\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/) !==
+      null
+    );
+  }
+  return false;
+};
