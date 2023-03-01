@@ -1,5 +1,6 @@
 import { fetchUrl } from "../utilities/config";
 
+export const signup = fetchUrl("auth/register")
 export const loginApi = fetchUrl("api/login");
 export const validateUserApi = fetchUrl("api/validateuser");
 

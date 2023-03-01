@@ -7,11 +7,20 @@ import {
   MutedLink,
   SubmitButton,
 } from "./common";
+import axios from "axios";
 import { Marginer } from "../marginer";
 import { AccountContext } from "./accountContext";
 
 export function SignupForm(props) {
   const { switchToSignin } = useContext(AccountContext);
+
+  const signupAction = async ()=>{
+    await axios.post("http://3.18.225.145:7000/api/user", {
+        email: "",
+        password: "",
+        name: ""
+      });
+  }
 
   return (
     <BoxContainer>
