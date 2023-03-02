@@ -6,7 +6,6 @@ import Header from "../../components/Header";
 import StatBox from "../../components/StatBox";
 import { DataGrid } from "@mui/x-data-grid";
 import { useDispatch, useSelector } from "react-redux";
-import { USER_DATA } from "../../utilities/localStorageConstants";
 import { useEffect } from "react";
 import { experimentsMiddleWare } from "./store/mypageMiddleware";
 import SvgDelete from "../../icons/SvgDeleteIcon";
@@ -17,23 +16,26 @@ const Dashboard = () => {
   const colors = tokens(theme.palette.mode);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    let userData = localStorage.getItem(USER_DATA);
-    userData = JSON.parse(userData);
-    dispatch(
-      experimentsMiddleWare({
-        _id: userData?.user?.email,
-        role: userData?.user?.role,
-      })
-    );
-  }, [dispatch]);
+  const { isLoading, data, userData } = useSelector(
+    ({ experimentsReducers, authMeReducers }) => {
+      return {
+        data: experimentsReducers.data,
+        isLoading: experimentsReducers.isLoading,
+        userData: authMeReducers?.data,
+      };
+    }
+  );
 
-  const { isLoading, data } = useSelector(({ experimentsReducers }) => {
-    return {
-      data: experimentsReducers.data,
-      isLoading: experimentsReducers.isLoading,
-    };
-  });
+  useEffect(() => {
+    if (userData) {
+      dispatch(
+        experimentsMiddleWare({
+          _id: userData?.email,
+          role: userData?.role,
+        })
+      );
+    }
+  }, [userData]);
 
   const columns = [
     {

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { experimentsMiddleWare } from "./mypageMiddleware";
+import { authMeMiddleWare, experimentsMiddleWare } from "./mypageMiddleware";
 
 const experimentsInitialState = {
   isLoading: false,
@@ -28,4 +28,32 @@ const experimentsReducer = createSlice({
   },
 });
 
+const authMeInitialState = {
+  isLoading: false,
+  error: "",
+};
+
+const authMeReducer = createSlice({
+  name: "authMe",
+  initialState: authMeInitialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(authMeMiddleWare.pending, (state) => {
+      state.isLoading = true;
+      state.error = "";
+    });
+    builder.addCase(authMeMiddleWare.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.data = action.payload;
+    });
+    builder.addCase(authMeMiddleWare.rejected, (state, action) => {
+      state.isLoading = false;
+      if (typeof action.payload === "string") {
+        state.error = action.payload;
+      }
+    });
+  },
+});
+
 export const experimentsReducers = experimentsReducer.reducer;
+export const authMeReducers = authMeReducer.reducer;

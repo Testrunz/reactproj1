@@ -12,13 +12,11 @@ import {
 import { Marginer } from "../marginer";
 import { AccountContext } from "./accountContext";
 import GoogleSignIn from "../GoogleSignIn";
-import { USER_DATA } from "../../utilities/localStorageConstants";
+import { TOKEN } from "../../utilities/localStorageConstants";
 import Loader from "../../components/Loader/Loader";
 import { useDispatch } from "react-redux";
-import {
-  loginMiddleWare,
-  validateUserMiddleWare,
-} from "./store/loginMiddleware";
+import { authMeMiddleWare } from "../../appScenes/myPage/store/mypageMiddleware";
+import axios from "axios";
 
 export function LoginForm() {
   const navigate = useNavigate();
@@ -27,7 +25,7 @@ export function LoginForm() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (localStorage.getItem(USER_DATA) !== null) {
+    if (localStorage.getItem(TOKEN) !== null) {
       navigate("/dashboard");
     }
   }, []);
@@ -44,22 +42,17 @@ export function LoginForm() {
     auth
       .signInWithEmailAndPassword(email, password)
       .then((res) => {
-        dispatch(loginMiddleWare({ email: res.user.email }))
-          .then((loginRes) => {
-            dispatch(
-              validateUserMiddleWare({ usertoken: loginRes.payload?.jwttoken })
-            )
-              .then((validateRes) => {
-                localStorage.setItem(
-                  USER_DATA,
-                  JSON.stringify(validateRes.payload)
-                );
-                setLoader(false);
-                navigate("/dashboard");
-              })
-              .catch(() => {
-                setLoader(false);
-              });
+        localStorage.setItem(
+          TOKEN,
+          JSON.stringify(res.user.multiFactor.user.accessToken)
+        );
+        axios.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${res.user.multiFactor.user.accessToken}`;
+        dispatch(authMeMiddleWare())
+          .then(() => {
+            setLoader(false);
+            navigate("/dashboard");
           })
           .catch(() => {
             setLoader(false);
@@ -101,7 +94,7 @@ export function LoginForm() {
           Signin
         </SubmitButton>
         <Marginer direction="vertical" margin="1.6em" />
-        <GoogleSignIn setLoader={setLoader}/>
+        <GoogleSignIn setLoader={setLoader} />
         <Marginer direction="vertical" margin="1em" />
         <MutedLink href="#">Don't have an accoun? </MutedLink>
         <BoldLink

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "react-pro-sidebar/dist/css/styles.css";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
@@ -11,7 +11,9 @@ import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import user from "../../assets/user.png"
+import user from "../../assets/user.png";
+import { useDispatch } from "react-redux";
+import { authMeMiddleWare } from "../myPage/store/mypageMiddleware";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -36,7 +38,10 @@ const Sidebar = () => {
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
-
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(authMeMiddleWare());
+  }, []);
   return (
     <Box
       sx={{
@@ -106,7 +111,7 @@ const Sidebar = () => {
                   Premnath
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                   Admin
+                  Admin
                 </Typography>
               </Box>
             </Box>
