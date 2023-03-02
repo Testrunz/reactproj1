@@ -5,7 +5,7 @@ export const loginApi = fetchUrl("api/login");
 export const validateUserApi = fetchUrl("api/validateuser");
 export const signinApi = "http://3.18.225.145:3000/auth/register";
 export const authMeApi = "http://3.18.225.145:3000/auth/me";
-export const googleSignInApi = "http://localhost:4444/api/user/googlesignin";
+export const googleSignInApi = "http://3.18.225.145:3000/auth/googlelogin";
 
 export const experimentsApi = fetchUrl("experiments/mypage");
 export const experimentsRunzApi = (id) => {

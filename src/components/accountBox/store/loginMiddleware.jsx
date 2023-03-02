@@ -48,10 +48,12 @@ export const signinMiddleWare = createAsyncThunk(
   SIGIN,
   async ({ email, password, name }, { rejectWithValue }) => {
     try {
+      const { timeZone } = Intl.DateTimeFormat().resolvedOptions();
       const { data } = await axios.post(signinApi, {
         email,
         password,
         name,
+        timeZone
       });
       if (data?.success) {
         toast.success(data?.success);
@@ -71,10 +73,12 @@ export const googleSignInMiddleWare = createAsyncThunk(
   SIGN_IN_GOOGLE,
   async ({ email, name, uid }, { rejectWithValue }) => {
     try {
+      const { timeZone } = Intl.DateTimeFormat().resolvedOptions();
       const { data } = await axios.post(googleSignInApi, {
         email,
         name,
         uid,
+        timeZone
       });
       return data;
     } catch (error) {
