@@ -37,10 +37,13 @@ const Sidebar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [userInfo, setUserInfo] = useState({});
   const [selected, setSelected] = useState("Dashboard");
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(authMeMiddleWare());
+   dispatch(authMeMiddleWare()).then(dataValue=>{
+    setUserInfo(dataValue.payload);
+   });
   }, []);
   return (
     <Box
@@ -108,10 +111,10 @@ const Sidebar = () => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  Premnath
+                  {userInfo.name}
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                  Admin
+                {userInfo.role}
                 </Typography>
               </Box>
             </Box>
