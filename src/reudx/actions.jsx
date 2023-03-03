@@ -1,5 +1,3 @@
-export const LOGIN = "login/LOGIN";
-export const VALIDATE_USER = "login/VALIDATE_USER";
 export const SIGIN = "login/SIGIN";
 
 export const SIGN_IN_GOOGLE = "login/SIGN_IN_GOOGLE";

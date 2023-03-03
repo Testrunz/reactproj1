@@ -14,10 +14,11 @@ import { AccountContext } from "./accountContext";
 import { isEmpty, isValidEmail } from "../../utilities/helpers";
 import { Box } from "@mui/material";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
-import { signinMiddleWare } from "./store/loginMiddleware";
+import { signUpMiddleWare } from "./store/loginMiddleware";
 import Loader from "../Loader/Loader";
 
 export function SignupForm() {
+
   const { switchToSignin } = useContext(AccountContext);
   const dispatch = useDispatch();
   const [isLoader, setLoader] = useState();
@@ -56,7 +57,7 @@ export function SignupForm() {
   const signupAction = (value, helper) => {
     setLoader(true);
     dispatch(
-      signinMiddleWare({
+      signUpMiddleWare({
         name: value.name,
         email: value.email,
         password: value.password,
@@ -65,6 +66,7 @@ export function SignupForm() {
       .then((res) => {
         if (res.payload?.success) {
           helper.resetForm();
+          switchToSignin()
         }
         setLoader(false);
       })

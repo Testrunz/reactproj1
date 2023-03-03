@@ -17,6 +17,7 @@ import Loader from "../../components/Loader/Loader";
 import { useDispatch } from "react-redux";
 import { authMeMiddleWare } from "../../appScenes/myPage/store/mypageMiddleware";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export function LoginForm() {
   const navigate = useNavigate();
@@ -42,6 +43,7 @@ export function LoginForm() {
     auth
       .signInWithEmailAndPassword(email, password)
       .then((res) => {
+        toast.success("Login Successful");
         localStorage.setItem(
           TOKEN,
           JSON.stringify(res.user.multiFactor.user.accessToken)
@@ -58,7 +60,8 @@ export function LoginForm() {
             setLoader(false);
           });
       })
-      .catch(() => {
+      .catch((error) => {
+        toast.error(error.message);
         setLoader(false);
       });
   };

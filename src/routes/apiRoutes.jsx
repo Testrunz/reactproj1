@@ -1,11 +1,9 @@
 import { fetchUrl } from "../utilities/config";
 
-export const signup = fetchUrl("auth/register");
-export const loginApi = fetchUrl("api/login");
-export const validateUserApi = fetchUrl("api/validateuser");
-export const signinApi = "https://api.testrunz.com/authapp/auth/register";
+export const signUpApi = "https://api.testrunz.com/authapp/auth/register";
 export const authMeApi = "https://api.testrunz.com/authapp/auth/me";
-export const googleSignInApi = "https://api.testrunz.com/authapp/auth/googlelogin";
+export const googleSignInApi =
+  "https://api.testrunz.com/authapp/auth/googlelogin";
 
 export const experimentsApi = fetchUrl("experiments/mypage");
 export const experimentsRunzApi = (id) => {
