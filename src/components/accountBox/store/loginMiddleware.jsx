@@ -1,59 +1,19 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import {
-  googleSignInApi,
-  loginApi,
-  signinApi,
-  validateUserApi,
-} from "../../../routes/apiRoutes";
-import {
-  LOGIN,
-  SIGIN,
-  SIGN_IN_GOOGLE,
-  VALIDATE_USER,
-} from "../../../reudx/actions";
+import { googleSignInApi, signUpApi } from "../../../routes/apiRoutes";
+import { SIGIN, SIGN_IN_GOOGLE } from "../../../reudx/actions";
 import { toast } from "react-toastify";
 
-export const loginMiddleWare = createAsyncThunk(
-  LOGIN,
-  async ({ email }, { rejectWithValue }) => {
-    try {
-      const { data } = await axios.post(loginApi, {
-        email,
-      });
-      return data;
-    } catch (error) {
-      const typedError = error;
-      return rejectWithValue(typedError);
-    }
-  }
-);
-
-export const validateUserMiddleWare = createAsyncThunk(
-  VALIDATE_USER,
-  async ({ usertoken }, { rejectWithValue }) => {
-    try {
-      const { data } = await axios.post(validateUserApi, {
-        usertoken,
-      });
-      return data;
-    } catch (error) {
-      const typedError = error;
-      return rejectWithValue(typedError);
-    }
-  }
-);
-
-export const signinMiddleWare = createAsyncThunk(
+export const signUpMiddleWare = createAsyncThunk(
   SIGIN,
   async ({ email, password, name }, { rejectWithValue }) => {
     try {
       const { timeZone } = Intl.DateTimeFormat().resolvedOptions();
-      const { data } = await axios.post(signinApi, {
+      const { data } = await axios.post(signUpApi, {
         email,
         password,
         name,
-        timeZone
+        timeZone,
       });
       if (data?.success) {
         toast.success(data?.success);
@@ -62,6 +22,8 @@ export const signinMiddleWare = createAsyncThunk(
     } catch (error) {
       if (error?.response?.data?.error) {
         toast.error(error.response.data.error);
+      } else if (error?.message) {
+        toast.error(error?.message);
       }
       const typedError = error;
       return rejectWithValue(typedError);
@@ -78,7 +40,7 @@ export const googleSignInMiddleWare = createAsyncThunk(
         email,
         name,
         uid,
-        timeZone
+        timeZone,
       });
       return data;
     } catch (error) {

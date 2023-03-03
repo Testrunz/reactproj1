@@ -1,18 +1,31 @@
-import { Box, IconButton, useTheme } from "@mui/material";
-import { useContext } from "react";
+import { Box, IconButton, Menu, MenuItem, useTheme } from "@mui/material";
+import { useContext, useState } from "react";
 import { ColorModeContext, tokens } from "../../utilities/theme/theme";
 import InputBase from "@mui/material/InputBase";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
-import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchIcon from "@mui/icons-material/Search";
+import { useNavigate } from "react-router-dom";
 
 const Topbar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const navigate = useNavigate();
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const handleSignOut = () => {
+    localStorage.clear();
+    navigate("/signin");
+    handleClose();
+  };
 
   return (
     <Box display="flex" justifyContent="space-between" p={2}>
@@ -37,15 +50,34 @@ const Topbar = () => {
             <LightModeOutlinedIcon />
           )}
         </IconButton>
-        <IconButton>
+        {/* <IconButton>
           <NotificationsOutlinedIcon />
         </IconButton>
         <IconButton>
           <SettingsOutlinedIcon />
-        </IconButton>
-        <IconButton>
-          <PersonOutlinedIcon />
-        </IconButton>
+        </IconButton> */}
+
+        <div>
+          <IconButton
+            size="large"
+            aria-label="account of current user"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            onClick={handleMenu}
+            color="inherit"
+          >
+            <PersonOutlinedIcon />
+          </IconButton>
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            <MenuItem onClick={handleSignOut}>SignOut</MenuItem>
+          </Menu>
+        </div>
       </Box>
     </Box>
   );
